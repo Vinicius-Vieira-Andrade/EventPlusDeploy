@@ -1,5 +1,6 @@
 import React from "react";
 import "./TableEv.css";
+import { FaEye } from "react-icons/fa";
 // import editPen from "../../../assets/images/edit-pen.svg";
 import editPen from "../../../assets/images/edit-pen.svg";
 import trashDelete from "../../../assets/images/trash-delete.svg";
@@ -8,11 +9,15 @@ import { dateFormateDbToView } from "../../../Utils/stringFunctions";
 // importa a biblioteca de tootips ()
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
+import { useNavigate } from "react-router-dom";
 
 // import trashDelete from "../../../assets/images/trash-delete.svg";
 
 const Table = ({ dados, fnDelete = null, fnUpdate = null }) => {
   // console.log(dados);
+
+const navigate = useNavigate();
+
   return (
     <table className="table-data">
       <thead className="table-data__head">
@@ -28,6 +33,9 @@ const Table = ({ dados, fnDelete = null, fnUpdate = null }) => {
           </th>
           <th className="table-data__head-title table-data__head-title--big">
             Data
+          </th>
+          <th className="table-data__head-title table-data__head-title--little">
+            Detalhes
           </th>
           <th className="table-data__head-title table-data__head-title--little">
             Editar
@@ -61,6 +69,10 @@ const Table = ({ dados, fnDelete = null, fnUpdate = null }) => {
               </td>
               <td className="table-data__data table-data__data--big">
                 {dateFormateDbToView(tp.dataEvento)}
+              </td>
+
+              <td className="table-data__data table-data__data--little">
+              <FaEye onClick={() => {navigate("/detalhe-evento")}} alt="icone de olho para visualizar detalhe dos eventos" size={20}/>
               </td>
 
               <td className="table-data__data table-data__data--little">
