@@ -72,7 +72,7 @@ const navigate = useNavigate();
               </td>
 
               <td className="table-data__data table-data__data--little">
-              <FaEye onClick={() => {navigate("/detalhe-evento")}} alt="icone de olho para visualizar detalhe dos eventos" size={20}/>
+              <FaEye style={{cursor: "pointer"}} onClick={() => {navigate(`/detalhe-evento/${tp.idEvento}`)}} idEvento={tp.idEvento} alt="icone de olho para visualizar detalhe dos eventos" size={20}/>
               </td>
 
               <td className="table-data__data table-data__data--little">

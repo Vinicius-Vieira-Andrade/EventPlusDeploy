@@ -19,6 +19,10 @@ export const myEventsResource = '/PresencasEvento/ListarMinhas';
  */
 export const presencesEventResource = '/PresencasEvento';
 /**
+ * Rota para o recurso Detalhes Evento
+ */
+export const detailsEventResource = '/detalhe-evento';
+/**
  * Rota para o recurso Presenças Evento
  */
 export const commentaryEventResource = '/ComentariosEvento';
