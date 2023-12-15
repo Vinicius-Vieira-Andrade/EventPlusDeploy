@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import {useParams } from "react-router-dom";
 import MainContent from "../../components/MainContent/MainContent";
 import Title from "../../components/Title/Title";
 import api, {
@@ -19,9 +19,10 @@ const DetalheEventoPage = () => {
   //recupera o id do evento como parâmetro na URL
   const { idEvento } = useParams();
   // const {showSpinner, setShowSpinner} = useState(false)
+  
   const [evento, setEvento] = useState([]);
   const [comentario, setComentario] = useState([]);
-  const {userData} = useContext(UserContext)
+  const {userData} = useContext(UserContext);
   const [notifyUser, setNotifyUser] = useState({}); //Componente Notification
 
   useEffect(() => {
@@ -29,11 +30,14 @@ const DetalheEventoPage = () => {
       try {
         if (userData.role === "Administrador") {
           const retorno = await api.get(`${eventsResource}/${idEvento}`);
+          setEvento(retorno.data);
+          console.log(retorno.data);
+          const retorno2 = await api.get(`${commentaryEventResource}?id=${idEvento}`)
+          setComentario(retorno2.data);
         }
-        setEvento(retorno.data);
-        console.log(retorno.data);
         if (userData.role === "Comum") {
-          const retorno2 = await api.get(`${commentaryEventResource}/Lis`)
+          const retorno2 = await api.get(`${commentaryEventResource}/ListarSomenteExibe`)
+          setComentario(retorno2.data)
         }
       } catch (error) {
         console.log(error);
@@ -48,14 +52,19 @@ const DetalheEventoPage = () => {
   return (
     <>
       <MainContent>
-        <section>
-          <Title titleText={evento.nomeEvento} />
+          <Title titleText={"Detalhes do evento"} />
 
+
+        <section>
+      
           {/* <p>IdEvento: {idEvento}</p> */}
-          <label>Descrição</label>
+          <label className="title">Evento</label>
+          <p>{evento.nomeEvento}</p>
+
+          <label className="title">Descrição</label>
           <p>{evento.descricao}</p>
 
-          <label>Data do evento</label>
+          <label className="title">Data do evento</label>
           <p>{new Date(evento.dataEvento).toLocaleDateString()}</p>
 
         </section>

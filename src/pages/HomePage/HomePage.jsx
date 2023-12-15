@@ -8,9 +8,12 @@ import ContactSection from "../../components/ContactSection/ContactSection";
 import Title from "../../components/Title/Title";
 import NextEvent from "../../components/NextEvent/NextEvent";
 import Container from "../../components/Container/Container";
-import api from "../../Services/Service";
+import api, {
+  oldEventResource,
+  nextEventResource,
+  eventsResource,
+} from "../../Services/Service";
 import Notification from "../../components/Notification/Notification";
-import { nextEventResource } from "../../Services/Service";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -19,6 +22,7 @@ import { Pagination } from "swiper/modules";
 
 const HomePage = () => {
   const [nextEvents, setNextEvents] = useState([]);
+  const [olderEvents, setOlderEvents] = useState([]);
   const [notifyUser, setNotifyUser] = useState(); //Componente Notification
 
   // roda somente na inicialização do componente
@@ -42,6 +46,17 @@ const HomePage = () => {
       }
     }
 
+    async function getOldEvents() {
+      try {
+        const promise = await api.get(eventsResource);
+        const dados = await promise.data;
+        setOlderEvents(dados);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    getOldEvents();
     getNextEvents(); //chama a função
   }, []);
 
@@ -53,7 +68,7 @@ const HomePage = () => {
       {/* PRÓXIMOS EVENTOS */}
       <section className="proximos-eventos">
         <Container>
-          {/* <Title titleText={"Próximos Eventos"} /> */}
+          <Title titleText={"Próximos Eventos"} />
 
           <div className="events-box">
             <Swiper
@@ -75,6 +90,36 @@ const HomePage = () => {
                     />
                   </SwiperSlide>
                 );
+              })}
+            </Swiper>
+          </div>
+
+          <Title titleText={"Antigos Eventos"} />
+          <div className="events-box">
+            <Swiper
+              spaceBetween={20}
+              slidesPerView={window.innerWidth > 992 ? 3 : 1}
+              pagination={{ dynamicBullet: true, clickable: true }}
+              modules={[Pagination]}
+              className="mySwiper"
+            >
+              {olderEvents.map((e) => {
+                if (
+                  new Date(e.dataEvento).toLocaleDateString() <
+                  new Date().toLocaleDateString()
+                ) {
+                  return (
+                    <SwiperSlide>
+                      <NextEvent
+                        key={e.idEvento}
+                        title={e.nomeEvento}
+                        description={e.descricao}
+                        eventDate={e.dataEvento}
+                        idEvent={e.idEvento}
+                      />
+                    </SwiperSlide>
+                  );
+                }
               })}
             </Swiper>
           </div>
