@@ -13,11 +13,11 @@ export const eventsResource = '/Evento';
 /**
  * Rota para o recurso Listar Minhas Presenças
  */
-export const myEventsResource = '/PresencasEvento/ListarMinhas';
+export const myEventsResource = '/PresencaEvento/ListarMinhasPresencas';
 /**
  * Rota para o recurso Presenças Evento
  */
-export const presencesEventResource = '/PresencasEvento';
+export const presencesEventResource = '/PresencaEvento';
 /**
  * Rota para o recurso Detalhes Evento
  */

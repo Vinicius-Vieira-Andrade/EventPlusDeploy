@@ -4,6 +4,7 @@ import Title from "../../components/Title/Title";
 import Table from "./TableEvA/TableEvA";
 import Container from "../../components/Container/Container";
 import { Select } from "../../components/FormComponents/FormComponents";
+import Notification from "../../components/Notification/Notification";
 import Spinner from "../../components/Spinner/Spinner";
 import Modal from "../../components/Modal/Modal";
 import api, {
@@ -30,6 +31,7 @@ const EventosAlunoPage = () => {
   const [tipoEvento, setTipoEvento] = useState("1"); //código do tipo do Evento escolhido
   const [showSpinner, setShowSpinner] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [notifyUser, setNotifyUser] = useState({});
 
   // recupera os dados globais do usuário
   const { userData } = useContext(UserContext);
@@ -71,7 +73,6 @@ const EventosAlunoPage = () => {
         // console.log(eventosMarcados);
       } catch (error) {
         //colocar o notification
-        console.log("Erro na API");
         console.log(error);
       }
     } else if (tipoEvento === "2") {
@@ -101,7 +102,6 @@ const EventosAlunoPage = () => {
         setEventos(arrEventos);
       } catch (error) {
         //colocar o notification
-        console.log("Erro na API");
         console.log(error);
       }
     } else {
@@ -217,9 +217,25 @@ const EventosAlunoPage = () => {
 
         if (promise.status === 201) {
           loadEventsType();
-          alert("Presença confirmada, parabéns");
+          setNotifyUser({
+            titleNote: "Sucesso",
+            textNote: `Presença confirmada com sucesso!`,
+            imgIcon: "success",
+            imgAlt:
+              "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
+            showMessage: true,
+          });
         }
-      } catch (error) {}
+      } catch (error) {
+        setNotifyUser({
+          titleNote: "erro!",
+          textNote: `Erro ao confirmar presença!`,
+          imgIcon: "danger",
+          imgAlt:
+            "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
+          showMessage: true,
+        });
+      }
       return;
     }
 
@@ -230,10 +246,24 @@ const EventosAlunoPage = () => {
       );
       if (unconnected.status === 204) {
         loadEventsType();
-        alert("Desconectado do evento");
+        setNotifyUser({
+          titleNote: "Sucesso",
+          textNote: `Presença desmarcada com sucesso!`,
+          imgIcon: "success",
+          imgAlt:
+            "Imagem de ilustração de erro. Moça segurando um balão com símbolo de erro.",
+          showMessage: true,
+        });
       }
     } catch (error) {
-      console.log("Erro ao desconecar o usuário do evento");
+      setNotifyUser({
+        titleNote: "Erro",
+        textNote: `Erro ao desmarcar presença!`,
+        imgIcon: "danger",
+        imgAlt:
+          "Imagem de ilustração de erro. Moça segurando um balão com símbolo de erro.",
+        showMessage: true,
+      });
       console.log(error);
     }
   }
@@ -276,6 +306,7 @@ const EventosAlunoPage = () => {
           idComentario={idComentario}
         />
       ) : null}
+       {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}
     </>
   );
 };
