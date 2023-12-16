@@ -1,5 +1,6 @@
 import React from "react";
-import "./NextEvent.css";
+import "./PreviousEvents.css";
+import api, { eventsResource } from "../../Services/Service";
 
 import { Tooltip } from "react-tooltip";
 
@@ -7,10 +8,18 @@ import { Tooltip } from "react-tooltip";
 import { dateFormatDbToView } from "../../Utils/stringFunctions";
 import { Link, useParams } from "react-router-dom";
 
-const NextEvent = ({ title, description, eventDate, idEvent }) => {
+const PreviousEvents = ({ title, description = "", eventDate = "", idEvent }) => {
+  const eventoo = {};
   const {idEvento} = useParams();
+
+  async function getEvento(){
+    const promise = api.get(eventsResource + "/" + idEvent);
+    eventoo = promise.data;
+  }
+
   function conectar(idEvent) {
     // dá pra usar a prop idEvent? testar
+    alert(`Chamar o recurso para conectar: ${idEvent}`);
   }
   return (
     <article className="event-card">
@@ -31,17 +40,8 @@ const NextEvent = ({ title, description, eventDate, idEvent }) => {
         {dateFormatDbToView(eventDate)}
       </p>
 
-      {/* <a
-        onClick={() => {
-          conectar(idEvent);
-        }}
-        className="event-card__connect-link"
-      >
-        Detalhes
-      </a> */}
-
-      <Link
-        className="event-card__connect-link"
+    
+      <Link className="event-card__connect-link"
         to={`/detalhe-evento/${idEvento}`}
         // state={eventoo}
       >
@@ -51,4 +51,4 @@ const NextEvent = ({ title, description, eventDate, idEvent }) => {
   );
 };
 
-export default NextEvent;
+export default PreviousEvents;

@@ -12,6 +12,7 @@ import api, {
   oldEventResource,
   nextEventResource,
   eventsResource,
+  previousEventResource,
 } from "../../Services/Service";
 import Notification from "../../components/Notification/Notification";
 
@@ -19,10 +20,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
+import PreviousEvents from "../../components/PreviousEvents/PreviousEvents";
 
 const HomePage = () => {
   const [nextEvents, setNextEvents] = useState([]);
-  const [olderEvents, setOlderEvents] = useState([]);
+  const [previousEvent, setPreviousEvents] = useState([]);
   const [notifyUser, setNotifyUser] = useState(); //Componente Notification
 
   // roda somente na inicialização do componente
@@ -48,16 +50,17 @@ const HomePage = () => {
 
     async function getOldEvents() {
       try {
-        const promise = await api.get(eventsResource);
+        const promise = await api.get(previousEventResource);
         const dados = await promise.data;
-        setOlderEvents(dados);
+        console.log(dados);
+        setPreviousEvents(dados);
       } catch (error) {
         console.log(error);
       }
     }
 
-    getOldEvents();
-    getNextEvents(); //chama a função
+    getOldEvents(); //busca eventos anteriores
+    getNextEvents(); //busca próximos eventos
   }, []);
 
   return (
@@ -103,14 +106,14 @@ const HomePage = () => {
               modules={[Pagination]}
               className="mySwiper"
             >
-              {olderEvents.map((e) => {
+              {previousEvent.map((e) => {
                 if (
                   new Date(e.dataEvento).toLocaleDateString() <
                   new Date().toLocaleDateString()
                 ) {
                   return (
                     <SwiperSlide>
-                      <NextEvent
+                      <PreviousEvents
                         key={e.idEvento}
                         title={e.nomeEvento}
                         description={e.descricao}
