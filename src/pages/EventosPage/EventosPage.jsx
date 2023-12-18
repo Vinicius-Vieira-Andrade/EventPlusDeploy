@@ -20,7 +20,7 @@ import { truncateDateFromDb } from "../../Utils/stringFunctions";
 import eventoImage from "../../assets/images/tipo-evento.svg";
 import "./EventosPage.css";
 
-export default function EventosPaage(props) {
+export default function EventosPage(props) {
   //dados do form
   const [nomeEvento, setNomeEvento] = useState(""); //Nome do evento
   const [descricaoEvento, setDescricaoEvento] = useState(""); //Descrição do Evento
@@ -28,7 +28,7 @@ export default function EventosPaage(props) {
   const [dataEvento, setDFataEvento] = useState(""); //Tipo do Evento escolhido ???
   const [eventos, setEventos] = useState([]);
   const [tiposEvento, setTiposEvento] = useState([]);
-  const [instituicao, setInstituicao] = useState();
+  const [instituicao, setInstituicao] = useState([]);
   const [frmEditData, setFrmEditData] = useState({}); //dados do formulário de edição de dados
 
   //states condicionais

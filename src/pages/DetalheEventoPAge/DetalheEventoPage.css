@@ -1,0 +1,33 @@
+/* Exibição dos dados do evento */
+
+.cadastro-evento a {
+    color: black;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.evento-detalhe{
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    
+    border-left: 2px ridge #B51D44;
+
+
+    padding-top: 20px;
+    padding-left: 20px;
+    margin-top: 50px;
+    margin-bottom: 15px;
+    justify-self: start;
+    top: 0;
+}
+
+.evento-detalhe .title{
+    text-align: left !important;
+}
+
+.evento-detalhe p {
+    margin-bottom: 20px;
+}

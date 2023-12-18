@@ -4,7 +4,7 @@ import "./TableDe.css";
 import editPen from "../../../assets/images/edit-pen.svg";
 import trashDelete from "../../../assets/images/trash-delete.svg";
 
-const TableTp = ({ dados }) => {
+const TableDe = ({ dados }) => {
   return (
     <table className="table-data">
       {/* cabeçalho */}
@@ -39,4 +39,4 @@ const TableTp = ({ dados }) => {
   );
 };
 
-export default TableTp;
+export default TableDe;

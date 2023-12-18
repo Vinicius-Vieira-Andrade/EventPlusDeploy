@@ -27,6 +27,8 @@ export const detailsEventResource = '/detalhe-evento';
  */
 export const commentaryEventResource = '/ComentariosEvento';
 
+export const listCommentaryEventResource = '/ComentariosEvento/ListarSomenteExibe';
+
 export const previousEventResource = '/Evento/ListarAntigos';
 
 /**

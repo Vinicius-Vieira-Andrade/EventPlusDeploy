@@ -89,7 +89,7 @@ const HomePage = () => {
                       title={e.nomeEvento}
                       description={e.descricao}
                       eventDate={e.dataEvento}
-                      idEvent={e.idEvento}
+                      idEvento={e.idEvento}
                     />
                   </SwiperSlide>
                 );
@@ -118,7 +118,7 @@ const HomePage = () => {
                         title={e.nomeEvento}
                         description={e.descricao}
                         eventDate={e.dataEvento}
-                        idEvent={e.idEvento}
+                        idEvento={e.idEvento}
                       />
                     </SwiperSlide>
                   );
